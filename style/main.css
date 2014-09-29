@@ -1,0 +1,20 @@
+.pink {
+  --texture:pink;
+  --x:-300;
+  --y:0;
+  --z:0;
+}
+
+.violet {
+  --texture:violet;
+  --x:0;
+  --y:0;
+  --z:0;
+}
+
+.purple {
+  --texture:purple;
+  --x:300;
+  --y:0;
+  --z:0;
+}
