@@ -61,8 +61,6 @@ proto.createdCallback = function() {
   var y = style.getPropertyValue("--y");
   var z = style.getPropertyValue("--z");
 
-  console.log(x + " " + y + " " + z);
-
   var material = new THREE.MeshLambertMaterial({ color: color });
   var obj = new THREE.Mesh(new THREE.BoxGeometry(200, 200, 200), material);
   obj.overdraw = true;
@@ -71,6 +69,23 @@ proto.createdCallback = function() {
   VR.group.add(obj);
   this.obj = obj;
   this.material = material;
+  document.body.addEventListener('render', this.render.bind(this));
+};
+
+proto.render = function() {
+  var styleName = this.getAttribute('style');
+  var style = getStyle("." + styleName);
+  var material = this.material;
+  var obj = this.obj;
+  var color = style.getPropertyValue("--texture");
+  var x = style.getPropertyValue("--x");
+  var y = style.getPropertyValue("--y");
+  var z = style.getPropertyValue("--z");
+  obj.position.x = x;
+  obj.position.y = y;
+  obj.position.z = z;
+  material.color.set(color);
+  material.needsUpdate = true;
 };
 
 proto.attachedCallback = function() {
@@ -88,6 +103,8 @@ proto.attributeChangedCallback = function(attr, oldVal, newVal) {
   var obj = this.obj;
   if (!newVal) { return; }
   switch (attr) {
+    case 'style':
+      this.render();
     case 'color':
       material.color.set(newVal);
       material.needsUpdate = true;
