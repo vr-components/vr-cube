@@ -20,6 +20,24 @@ var baseComponents = window.COMPONENTS_BASE_URL || 'bower_components/';
  */
 var proto = Object.create(HTMLElement.prototype);
 
+function getStyle(className) {
+  var styleSheets = document.styleSheets;
+  var styleSheet;
+  var classes;
+  var i;
+  var j;
+
+  for (i=0; i<styleSheets.length; ++i) {
+    styleSheet = styleSheets[0];
+    classes = document.styleSheets[0].rules || document.styleSheets[0].cssRules;
+    for (j=0; j<classes.length; j++) {
+      if (classes[j].selectorText == className) {
+        return classes[j].style;
+      }
+    }
+  }
+}
+
 
 /**
  * Called when the element is first created.
@@ -31,10 +49,17 @@ var proto = Object.create(HTMLElement.prototype);
  */
 proto.createdCallback = function() {
   var shadow = this.createShadowRoot();
-  var color = this.getAttribute('color');
-  var x = this.getAttribute('x');
-  var y = this.getAttribute('y');
-  var z = this.getAttribute('z');
+  var styleName = this.getAttribute('style');
+  var style = getStyle("." + styleName);
+  //var color = this.getAttribute('color');
+  //var x = this.getAttribute('x');
+  //var y = this.getAttribute('y');
+  //var z = this.getAttribute('z')
+
+  var color = style.getPropertyValue("--texture");
+  var x = style.getPropertyValue("--x");
+  var y = style.getPropertyValue("--y");
+  var z = style.getPropertyValue("--z");
 
   console.log(x + " " + y + " " + z);
 
