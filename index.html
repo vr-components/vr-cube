@@ -4,12 +4,39 @@
   <meta charset="utf-8">
   <title>VR Cube Demo</title>
   <meta name="description" content="Demo for 3D web components">
+  <style>
+    .pink {
+      --texture:pink;
+      --x:-300;
+      --y:0;
+      --z:0;
+    }
+
+    .violet {
+      --texture:violet;
+      --x:0;
+      --y:0;
+      --z:0;
+    }
+
+    .purple {
+      --texture:purple;
+      --x:300;
+      --y:0;
+      --z:0;
+    }
+  </style>
 </head>
 
 <body>
+<!--
   <vr-cube color="pink" x="-300" y="0" z="0"></vr-cube>
   <vr-cube color="violet" x="0" y="0" z="0"></vr-cube>
   <vr-cube color="purple" x="300" y="0" z="0"></vr-cube>
+-->
+  <vr-cube style="pink"></vr-cube>
+  <vr-cube style="violet"></vr-cube>
+  <vr-cube style="purple"></vr-cube>
   <script src="bower_components/threejs/build/three.min.js"></script>
   <script src="lib/vr.js"></script>
   <script src="vr-cube.js"></script>
