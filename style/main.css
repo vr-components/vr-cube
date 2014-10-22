@@ -18,3 +18,13 @@
   --y:0;
   --z:0;
 }
+
+.vr-button {
+  display: inline-block;
+  height: 200px;
+  width: 200px;
+  background-color: violet;
+  margin: 5px;
+  text-align: center;
+  line-height: 50px;
+}

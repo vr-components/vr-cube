@@ -11,6 +11,12 @@
  * Locals
  */
 
+var template = document.createElement('template');
+template.innerHTML =
+'<div>' +
+  '<content></content>' +
+'</div>';
+
 var baseComponents = window.COMPONENTS_BASE_URL || 'bower_components/';
 
 /**
@@ -48,44 +54,14 @@ function getStyle(className) {
  * @private
  */
 proto.createdCallback = function() {
+  var tmpl = template.content.cloneNode(true);
   var shadow = this.createShadowRoot();
-  var styleName = this.getAttribute('style');
-  var style = getStyle("." + styleName);
-  //var color = this.getAttribute('color');
-  //var x = this.getAttribute('x');
-  //var y = this.getAttribute('y');
-  //var z = this.getAttribute('z')
-
-  var color = style.getPropertyValue("--texture");
-  var x = style.getPropertyValue("--x");
-  var y = style.getPropertyValue("--y");
-  var z = style.getPropertyValue("--z");
-
-  var material = new THREE.MeshLambertMaterial({ color: color });
-  var obj = new THREE.Mesh(new THREE.BoxGeometry(200, 200, 200), material);
-  obj.overdraw = true;
-  obj.position.set(x, y, z);
-
-  VR.group.add(obj);
-  this.obj = obj;
-  this.material = material;
-  document.body.addEventListener('render', this.render.bind(this));
+  this.inner = tmpl.firstElementChild;
+  shadow.appendChild(tmpl);
 };
 
 proto.render = function() {
   var styleName = this.getAttribute('style');
-  var style = getStyle("." + styleName);
-  var material = this.material;
-  var obj = this.obj;
-  var color = style.getPropertyValue("--texture");
-  var x = style.getPropertyValue("--x");
-  var y = style.getPropertyValue("--y");
-  var z = style.getPropertyValue("--z");
-  obj.position.x = x;
-  obj.position.y = y;
-  obj.position.z = z;
-  material.color.set(color);
-  material.needsUpdate = true;
 };
 
 proto.attachedCallback = function() {
@@ -99,32 +75,14 @@ proto.attachedCallback = function() {
  * @private
  */
 proto.attributeChangedCallback = function(attr, oldVal, newVal) {
-  var material = this.material;
-  var obj = this.obj;
-  if (!newVal) { return; }
-  switch (attr) {
-    case 'style':
-      this.render();
-    case 'color':
-      material.color.set(newVal);
-      material.needsUpdate = true;
-      break;
-    case 'x': case 'y': case 'z':
-      obj.position[attr] = newVal;
-      break;
-    default:
-      break;
-  }
-
 };
-
 
 // Register and return the constructor
 // and expose `protoype` (bug 1048339)
-module.exports = document.registerElement('vr-cube', { prototype: proto });
+module.exports = document.registerElement('vr-hud', { prototype: proto });
 module.exports._prototype = proto;
 
 });})((function(n,w){'use strict';return typeof define=='function'&&define.amd?
 define:typeof module=='object'?function(c){c(require,exports,module);}:
 function(c){var m={exports:{}},r=function(n){return w[n];};
-w[n]=c(r,m.exports,m)||m.exports;};})('vr-cube',this));
+w[n]=c(r,m.exports,m)||m.exports;};})('vr-hud',this));

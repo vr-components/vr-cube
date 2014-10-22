@@ -8,16 +8,14 @@
 </head>
 
 <body>
-<!--
-  <vr-cube color="pink" x="-300" y="0" z="0"></vr-cube>
-  <vr-cube color="violet" x="0" y="0" z="0"></vr-cube>
-  <vr-cube color="purple" x="300" y="0" z="0"></vr-cube>
--->
-  <vr-cube style="pink"></vr-cube>
-  <vr-cube style="violet"></vr-cube>
-  <vr-cube style="purple"></vr-cube>
+  <vr-hud>
+    <vr-button x="-300" y="0" z="0" class="vr-button">Button 1</vr-button>
+    <vr-button x="0" y="0" z="0" class="vr-button">Button 2</vr-button>
+    <vr-button x="300" y="0" z="0" class="vr-button">Button 3</vr-button>
+  </vr-hud>
   <script src="bower_components/threejs/build/three.min.js"></script>
   <script src="lib/vr.js"></script>
-  <script src="vr-cube.js"></script>
+  <script src="vr-button.js"></script>
+  <script src="vr-hud.js"></script>
 </body>
 </html>
